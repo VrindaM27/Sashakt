@@ -58,4 +58,3 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
         return workerIdList.length;
     }    
 }
-
