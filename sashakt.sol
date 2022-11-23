@@ -20,6 +20,7 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
         string fName;
         string lName;
         uint attendanceValue;
+        address recipient;
     }
     
     mapping (uint => Worker) workerList; //to store key-value pair, where key=stu id, value=stu details
@@ -32,26 +33,25 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
     );
     
 	//fn to create a new student
-    function createWorker(uint _workerId, uint _age, string _fName, string _lName) onlyOwner public {
+    function createWorker(uint _workerId, uint _age, string _fName, string _lName,address _recipient) onlyOwner public {
         var worker = workerList[_workerId];        
         worker.age = _age;
         worker.fName = _fName;
         worker.lName = _lName;
         worker.attendanceValue = 0;
+        worker.recipient = _recipient;
         workerIdList.push(_workerId) -1;
         workerCreationEvent(_fName, _lName, _age);
     }
     
-    function incrementAttendance(uint _workerId) onlyOwner public {
+    function incrementAttendance(uint _workerId) onlyOwner public payable{
         workerList[_workerId].attendanceValue = workerList[_workerId].attendanceValue+1;
+        workerList[_workerId].recipient.transfer(10);
+
     }
     
-    function getWorkers() view public returns(uint[]) {
-        return workerIdList;
-    }
-    
-    function getParticularWorker(uint _workerId) public view returns (string, string, uint, uint) {
-        return (workerList[_workerId].fName, workerList[_workerId].lName, workerList[_workerId].age, workerList[_workerId].attendanceValue);
+    function getParticularWorker(uint _workerId) public view returns (string, string, uint, uint,address) {
+        return (workerList[_workerId].fName, workerList[_workerId].lName, workerList[_workerId].age, workerList[_workerId].attendanceValue,workerList[_workerId].recipient);
     }
 
     function countWorkers() view public returns (uint) {
