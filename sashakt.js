@@ -26,6 +26,10 @@ if (typeof web3 !== "undefined") {
           name: "_lName",
           type: "string",
         },
+        {
+          name: "_recipient",
+          type: "address",
+        },
       ],
       name: "createWorker",
       outputs: [],
@@ -34,14 +38,63 @@ if (typeof web3 !== "undefined") {
       type: "function",
     },
     {
-      constant: true,
+      constant: false,
       inputs: [
+        {
+          name: "_workerId",
+          type: "uint256",
+        },
+        {
+          name: "_amount",
+          type: "uint256",
+        },
+      ],
+      name: "incrementAttendance",
+      outputs: [],
+      payable: true,
+      stateMutability: "payable",
+      type: "function",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          name: "fName",
+          type: "string",
+        },
+        {
+          indexed: false,
+          name: "lName",
+          type: "string",
+        },
+        {
+          indexed: false,
+          name: "age",
+          type: "uint256",
+        },
+      ],
+      name: "workerCreationEvent",
+      type: "event",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "countWorkers",
+      outputs: [
         {
           name: "",
           type: "uint256",
         },
       ],
-      name: "workerIdList",
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "getBalance",
       outputs: [
         {
           name: "",
@@ -78,19 +131,9 @@ if (typeof web3 !== "undefined") {
           name: "",
           type: "uint256",
         },
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: "getWorkers",
-      outputs: [
         {
           name: "",
-          type: "uint256[]",
+          type: "address",
         },
       ],
       payable: false,
@@ -99,8 +142,13 @@ if (typeof web3 !== "undefined") {
     },
     {
       constant: true,
-      inputs: [],
-      name: "countWorkers",
+      inputs: [
+        {
+          name: "",
+          type: "uint256",
+        },
+      ],
+      name: "workerIdList",
       outputs: [
         {
           name: "",
@@ -110,47 +158,11 @@ if (typeof web3 !== "undefined") {
       payable: false,
       stateMutability: "view",
       type: "function",
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          name: "_workerId",
-          type: "uint256",
-        },
-      ],
-      name: "incrementAttendance",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          name: "fName",
-          type: "string",
-        },
-        {
-          indexed: false,
-          name: "lName",
-          type: "string",
-        },
-        {
-          indexed: false,
-          name: "age",
-          type: "uint256",
-        },
-      ],
-      name: "workerCreationEvent",
-      type: "event",
     },
   ]);
 
   var AttendanceManagement = attendanceContract.at(
-    "0x7Ec3B7dbf8BF8CfA85e068AB9A1ebd5dA1d54030"
+    "0x9fF155317783DD6e546eb692c9EfEF16a3aa07Bb"
   );
   console.log(AttendanceManagement);
 
@@ -165,15 +177,19 @@ if (typeof web3 !== "undefined") {
 
   //For Incrementing Attendance
   $("#btnIncAttnd").click(function () {
-    AttendanceManagement.incrementAttendance($("#idAttendance").val());
+    AttendanceManagement.incrementAttendance(
+      $("#idAttendance").val(),
+      $("#amt").val()
+    );
     AttendanceManagement.getParticularWorker(
       $("#idAttendance").val(),
       function (error, result) {
         if (!error) {
           $("#attendance").html("Attendance Marked Successfully. Thank You!");
-
           console.log(result);
-        } else console.error(error);
+        } else {
+          $("#attendance").html("Error, Pls Try Again");
+        }
       }
     );
   });

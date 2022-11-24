@@ -32,6 +32,8 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
        uint age
     );
     
+    uint256 balance = msg.value;
+
 	//fn to create a new student
     function createWorker(uint _workerId, uint _age, string _fName, string _lName,address _recipient) onlyOwner public {
         var worker = workerList[_workerId];        
@@ -44,10 +46,11 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
         workerCreationEvent(_fName, _lName, _age);
     }
     
-    function incrementAttendance(uint _workerId) onlyOwner public payable{
+    function incrementAttendance(uint _workerId,uint _amount) onlyOwner public payable{
         workerList[_workerId].attendanceValue = workerList[_workerId].attendanceValue+1;
-        workerList[_workerId].recipient.transfer(10);
-
+        require(_amount<=80);
+        workerList[_workerId].recipient.transfer(_amount);
+        balance-=_amount;
     }
     
     function getParticularWorker(uint _workerId) public view returns (string, string, uint, uint,address) {
@@ -56,5 +59,10 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
 
     function countWorkers() view public returns (uint) {
         return workerIdList.length;
-    }    
+    }   
+    
+    function getBalance() public view returns(uint256){
+        return owner.balance;
+    }
+
 }
