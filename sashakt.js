@@ -209,7 +209,7 @@ if (typeof web3 !== "undefined") {
           );
           console.log(result);
         } else {
-          $("#attendance").html("Error, Pls Try Again");
+          console.error(error);
         }
       }
     );
