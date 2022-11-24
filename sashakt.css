@@ -1,39 +1,36 @@
+#poora {
+  background-color: #c0c0c0;
+}
 .container {
-  width: 65%;
+  width: 70%;
   margin: 0 auto;
-  border-color: #82b2cf;
+  background-color: #003366;
 }
 .container fieldset {
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   margin: 0px 0px 10px 0px;
-  border: 1px solid rgb(119, 2, 2);
+  border: 1px solid black;
   padding: 20px;
-  background: rgb(252, 249, 178);
+  background: #cccccc;
   box-shadow: inset 0px 0px 15px #ffe5e5;
   -moz-box-shadow: inset 0px 0px 15px #ffe5e5;
   -webkit-box-shadow: inset 0px 0px 15px #ffe5e5;
 }
 .container fieldset legend {
   color: rgb(5, 1, 12);
-  border-top: 1px solid #ffd2d2;
-  border-left: 1px solid #ffd2d2;
-  border-right: 1px solid #ffd2d2;
-  border-radius: 5px 5px 0px 0px;
-  -webkit-border-radius: 5px 5px 0px 0px;
-  -moz-border-radius: 5px 5px 0px 0px;
-  background: #fff4f4;
-  padding: 0px 8px 3px 8px;
-  box-shadow: -0px -1px 2px #f1f1f1;
-  -moz-box-shadow: -0px -1px 2px #f1f1f1;
-  -webkit-box-shadow: -0px -1px 2px #f1f1f1;
-  font-weight: normal;
-  font-size: 30px;
+  background: gold;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 html,
 body {
   min-height: 100%;
+}
+h2 {
+  color: black;
 }
 
 body,
@@ -46,14 +43,22 @@ p {
   margin: 0;
   outline: none;
   font-family: Roboto, Arial, sans-serif;
-  font-size: 14px;
-  color: rgb(21, 21, 22);
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
   line-height: 22px;
 }
 h1 {
-  margin: 15px 0;
-  font-weight: 400;
-  font-style: bold;
+  margin-left: 270px;
+  margin-top: 0px;
+  font-weight: 800;
+  font-style: italic;
+  background-color: #cccccc;
+  color: black;
+  text-align: center;
+  padding: 27px;
+  font-size: 35px;
+  width: 60%;
 }
 .testbox {
   display: flex;
@@ -65,7 +70,7 @@ h1 {
 form {
   width: 100%;
   padding: 20px;
-  background: #fff;
+  background: white;
   box-shadow: 0 2px 5px #ccc;
   border-color: #095484;
 }
@@ -149,13 +154,17 @@ button {
   -moz-border-radius: 5px;
   border-radius: 5px;
   background-color: #095484;
+  color: white;
   font-size: 16px;
-  color: #fff;
   cursor: pointer;
+  font-weight: 300;
+  margin-left: 87%;
 }
 button:hover {
-  background-color: #0666a3;
+  background-color: gold;
+  color: black;
 }
+
 @media (min-width: 568px) {
   .name-item,
   .city-item {
