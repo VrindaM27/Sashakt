@@ -8,6 +8,58 @@ if (typeof web3 !== "undefined") {
 
   var attendanceContract = web3.eth.contract([
     {
+      constant: true,
+      inputs: [],
+      name: "getBalance",
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+        },
+      ],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: "_workerId",
+          type: "uint256",
+        },
+      ],
+      name: "checkacctBalance",
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+        },
+      ],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: "",
+          type: "uint256",
+        },
+      ],
+      name: "workerIdList",
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+        },
+      ],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       constant: false,
       inputs: [
         {
@@ -35,6 +87,55 @@ if (typeof web3 !== "undefined") {
       outputs: [],
       payable: false,
       stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [
+        {
+          name: "_workerId",
+          type: "uint256",
+        },
+      ],
+      name: "getParticularWorker",
+      outputs: [
+        {
+          name: "",
+          type: "string",
+        },
+        {
+          name: "",
+          type: "string",
+        },
+        {
+          name: "",
+          type: "uint256",
+        },
+        {
+          name: "",
+          type: "uint256",
+        },
+        {
+          name: "",
+          type: "address",
+        },
+      ],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "countWorkers",
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+        },
+      ],
+      payable: false,
+      stateMutability: "view",
       type: "function",
     },
     {
@@ -77,92 +178,10 @@ if (typeof web3 !== "undefined") {
       name: "workerCreationEvent",
       type: "event",
     },
-    {
-      constant: true,
-      inputs: [],
-      name: "countWorkers",
-      outputs: [
-        {
-          name: "",
-          type: "uint256",
-        },
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: "getBalance",
-      outputs: [
-        {
-          name: "",
-          type: "uint256",
-        },
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: true,
-      inputs: [
-        {
-          name: "_workerId",
-          type: "uint256",
-        },
-      ],
-      name: "getParticularWorker",
-      outputs: [
-        {
-          name: "",
-          type: "string",
-        },
-        {
-          name: "",
-          type: "string",
-        },
-        {
-          name: "",
-          type: "uint256",
-        },
-        {
-          name: "",
-          type: "uint256",
-        },
-        {
-          name: "",
-          type: "address",
-        },
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      constant: true,
-      inputs: [
-        {
-          name: "",
-          type: "uint256",
-        },
-      ],
-      name: "workerIdList",
-      outputs: [
-        {
-          name: "",
-          type: "uint256",
-        },
-      ],
-      payable: false,
-      stateMutability: "view",
-      type: "function",
-    },
   ]);
 
   var AttendanceManagement = attendanceContract.at(
-    "0x9fF155317783DD6e546eb692c9EfEF16a3aa07Bb"
+    "0xF966Ee2244aAe481BdEEC6b239cBEFba5Fd08a47"
   );
   console.log(AttendanceManagement);
 
@@ -185,7 +204,9 @@ if (typeof web3 !== "undefined") {
       $("#idAttendance").val(),
       function (error, result) {
         if (!error) {
-          $("#attendance").html("Attendance Marked Successfully. Thank You!");
+          $("#attendance").html(
+            "Attendance Marked Successfully. Your Payment has been processed."
+          );
           console.log(result);
         } else {
           $("#attendance").html("Error, Pls Try Again");
@@ -212,6 +233,19 @@ if (typeof web3 !== "undefined") {
               result[3]
           );
 
+          console.log(result);
+        } else console.error(error);
+      }
+    );
+  });
+
+  //getting account balance
+  $("#balanceButt").click(function () {
+    AttendanceManagement.checkacctBalance(
+      $("#balanceidDetails").val(),
+      function (error, result) {
+        if (!error) {
+          $("#accDet").html("Balance: " + result);
           console.log(result);
         } else console.error(error);
       }

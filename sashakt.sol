@@ -65,4 +65,8 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
         return owner.balance;
     }
 
+    function checkacctBalance(uint _workerId) public view returns(uint256){
+        return workerList[_workerId].recipient.balance;
+    }
+
 }
