@@ -1,3 +1,10 @@
+function ClearFields() {
+  document.getElementById("idAttendance").value = "";
+  document.getElementById("amt").value = "";
+  document.getElementById("idDetails").value = "";
+  document.getElementById("balanceidDetails").value = "";
+}
+
 if (typeof web3 !== "undefined") {
   web3 = new Web3(web3.currentProvider);
 } else {
@@ -181,20 +188,11 @@ if (typeof web3 !== "undefined") {
   ]);
 
   var AttendanceManagement = attendanceContract.at(
-    "0xF966Ee2244aAe481BdEEC6b239cBEFba5Fd08a47"
+    "0xE3A265b896C12dAB4d04F5AFd6178DC326973eE6"
   );
   console.log(AttendanceManagement);
 
-  $("#button").click(function () {
-    AttendanceManagement.createWorker(
-      $("#id").val(),
-      $("#age").val(),
-      $("#fname").val(),
-      $("#lname").val()
-    );
-  });
-
-  //For Incrementing Attendance
+  //Mark Attendance
   $("#btnIncAttnd").click(function () {
     AttendanceManagement.incrementAttendance(
       $("#idAttendance").val(),
@@ -208,38 +206,40 @@ if (typeof web3 !== "undefined") {
             "Attendance Marked Successfully. Your Payment has been processed."
           );
           console.log(result);
+          ClearFields();
         } else {
           console.error(error);
         }
       }
     );
   });
-  //For getting student details
+  //View Worker Details
   $("#btnDetails").click(function () {
     AttendanceManagement.getParticularWorker(
       $("#idDetails").val(),
       function (error, result) {
         if (!error) {
           $("#stdDetails").html(
-            "Name: " +
+            "Worker Name: " +
               result[0] +
               " " +
               result[1] +
               "<br />" +
-              "Age: " +
+              "Worker Age: " +
               result[2] +
               "<br />" +
-              "Days Present : " +
+              "Attendance : " +
               result[3]
           );
 
           console.log(result);
+          ClearFields();
         } else console.error(error);
       }
     );
   });
 
-  //getting account balance
+  //View Account Balance
   $("#balanceButt").click(function () {
     AttendanceManagement.checkacctBalance(
       $("#balanceidDetails").val(),
@@ -247,12 +247,13 @@ if (typeof web3 !== "undefined") {
         if (!error) {
           $("#accDet").html("Balance: " + result);
           console.log(result);
+          ClearFields();
         } else console.error(error);
       }
     );
   });
 
-  //For getting Student Count
+  //Count Workers
   $("#btnCount").click(function () {
     AttendanceManagement.countWorkers(function (error, result) {
       if (!error) {
