@@ -48,7 +48,6 @@ contract WorkerAttendance is Owned { //class AttendanceSheet is inheriting from 
     
     function incrementAttendance(uint _workerId,uint _amount) onlyOwner public payable{
         workerList[_workerId].attendanceValue = workerList[_workerId].attendanceValue+1;
-        require(_amount<=80);
         workerList[_workerId].recipient.transfer(_amount);
         balance-=_amount;
     }
