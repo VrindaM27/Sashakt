@@ -188,16 +188,13 @@ if (typeof web3 !== "undefined") {
   ]);
 
   var AttendanceManagement = attendanceContract.at(
-    "0xE3A265b896C12dAB4d04F5AFd6178DC326973eE6"
+    "0x3e742444E890943126371C73645311A0348DCaEb"
   );
   console.log(AttendanceManagement);
 
   //Mark Attendance
   $("#btnIncAttnd").click(function () {
-    AttendanceManagement.incrementAttendance(
-      $("#idAttendance").val(),
-      $("#amt").val()
-    );
+    AttendanceManagement.incrementAttendance($("#idAttendance").val(), 50);
     AttendanceManagement.getParticularWorker(
       $("#idAttendance").val(),
       function (error, result) {
